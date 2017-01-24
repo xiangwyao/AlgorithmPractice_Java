@@ -1,16 +1,21 @@
 # AlgorithmPractice_Java
 
-One Paragraph of project description goes here
+This project repository will be a self learning media to help me consolidate my skills of Algorithm analysis and design. 
 
 ## Getting Started
 
+Serveral topics will be included in this repository:
+### 
+### Dynamic Programming
+### 
+### Graph Theory
 
 Unit testing will be added accordingly. 
 
 ```
 Try to consider the boundary conditions as well as the general cases.
 ```
-This project repository will be a self learning media to help me consolidate my skills of   
+ 
 
 
 ## Running the tests
