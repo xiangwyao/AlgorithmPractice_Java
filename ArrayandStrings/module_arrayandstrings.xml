@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project name="module_arrayandstrings" default="compile.module.arrayandstrings">
+  <dirname property="module.arrayandstrings.basedir" file="${ant.file.module_arrayandstrings}"/>
+  
+  <property name="module.jdk.home.arrayandstrings" value="${project.jdk.home}"/>
+  <property name="module.jdk.bin.arrayandstrings" value="${project.jdk.bin}"/>
+  <property name="module.jdk.classpath.arrayandstrings" value="${project.jdk.classpath}"/>
+  
+  <property name="compiler.args.arrayandstrings" value="-encoding UTF-8 -source 8 -target 8 ${compiler.args}"/>
+  
+  <property name="arrayandstrings.output.dir" value="${module.arrayandstrings.basedir}/out/production/ArrayandStrings"/>
+  <property name="arrayandstrings.testoutput.dir" value="${module.arrayandstrings.basedir}/out/test/ArrayandStrings"/>
+  
+  <path id="arrayandstrings.module.bootclasspath">
+    <!-- Paths to be included in compilation bootclasspath -->
+  </path>
+  
+  <path id="arrayandstrings.module.production.classpath">
+    <path refid="${module.jdk.classpath.arrayandstrings}"/>
+  </path>
+  
+  <path id="arrayandstrings.runtime.production.module.classpath">
+    <pathelement location="${arrayandstrings.output.dir}"/>
+  </path>
+  
+  <path id="arrayandstrings.module.classpath">
+    <path refid="${module.jdk.classpath.arrayandstrings}"/>
+    <pathelement location="${arrayandstrings.output.dir}"/>
+  </path>
+  
+  <path id="arrayandstrings.runtime.module.classpath">
+    <pathelement location="${arrayandstrings.testoutput.dir}"/>
+    <pathelement location="${arrayandstrings.output.dir}"/>
+  </path>
+  
+  
+  <patternset id="excluded.from.module.arrayandstrings">
+    <patternset refid="ignored.files"/>
+  </patternset>
+  
+  <patternset id="excluded.from.compilation.arrayandstrings">
+    <patternset refid="excluded.from.module.arrayandstrings"/>
+  </patternset>
+  
+  <path id="arrayandstrings.module.sourcepath">
+    <dirset dir="${module.arrayandstrings.basedir}">
+      <include name="src"/>
+    </dirset>
+  </path>
+  
+  
+  <target name="compile.module.arrayandstrings" depends="compile.module.arrayandstrings.production,compile.module.arrayandstrings.tests" description="Compile module ArrayandStrings"/>
+  
+  <target name="compile.module.arrayandstrings.production" depends="register.custom.compilers" description="Compile module ArrayandStrings; production classes">
+    <mkdir dir="${arrayandstrings.output.dir}"/>
+    <javac2 destdir="${arrayandstrings.output.dir}" debug="${compiler.debug}" nowarn="${compiler.generate.no.warnings}" memorymaximumsize="${compiler.max.memory}" fork="true" executable="${module.jdk.bin.arrayandstrings}/javac">
+      <compilerarg line="${compiler.args.arrayandstrings}"/>
+      <bootclasspath refid="arrayandstrings.module.bootclasspath"/>
+      <classpath refid="arrayandstrings.module.production.classpath"/>
+      <src refid="arrayandstrings.module.sourcepath"/>
+      <patternset refid="excluded.from.compilation.arrayandstrings"/>
+    </javac2>
+    
+    <copy todir="${arrayandstrings.output.dir}">
+      <fileset dir="${module.arrayandstrings.basedir}/src">
+        <patternset refid="compiler.resources"/>
+        <type type="file"/>
+      </fileset>
+    </copy>
+  </target>
+  
+  <target name="compile.module.arrayandstrings.tests" depends="register.custom.compilers,compile.module.arrayandstrings.production" description="compile module ArrayandStrings; test classes" unless="skip.tests"/>
+  
+  <target name="clean.module.arrayandstrings" description="cleanup module">
+    <delete dir="${arrayandstrings.output.dir}"/>
+    <delete dir="${arrayandstrings.testoutput.dir}"/>
+  </target>
+</project>
